@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2016 by istvanpetkes (http://jsbin.com/rotocem/12/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="Color Clock">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Color Clock</title>
+<style id="jsbin-css">
+* { 
+	margin: 0; 
+	padding: 0; 
+}
+html, body {
+	height: 100%;
+}
+#color_clock {
+	color:white;
+	font-size: 35px;
+	margin-top: -0px;
+	text-align: left;
+	position: relative;
+	top: 90%;
+	left:0;
+	margin-left:10px;
+	padding-left:10px;
+}
+.font_class1{
+	font-family: 'Bungee Inline', cursive;
+}
+.font_class2{
+	font-family: 'Alfa Slab One', cursive;
+}
+.font_class3{
+	font-family: 'Audiowide', cursive;
+}
+.font_class4{
+	font-family: 'Rock Salt', cursive;
+}
+.font_class5{
+	font-family: 'Shrikhand', cursive;
+}
+
+</style>
+</head>
+<body>
+
+<div id="color_clock" class="font_class1"></div>
+	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Audiowide|Rock+Salt|Shrikhand&amp;subset=gujarati,latin-ext" rel="stylesheet"> 
+	<link id="stylecall" rel="stylesheet" href="style.css" />
+	<script src="js.js" async="async"></script>
+<script id="jsbin-javascript">
+function colorClock(){
+	var date = new Date();
+	var hours = date.getHours();
+	var minutes = date.getMinutes(); 
+	var seconds = date.getSeconds();
+	var separator = ' : ';
+	var hexColor = '';
+	var clockFace = '';
+	
+	if (hours < 10) {
+	  hours = '0' + hours;
+	}
+	if (minutes < 10) {
+	  minutes = '0' + minutes;
+	}
+	if (seconds < 10) {
+	  seconds = '0' + seconds;
+	}
+
+	hexColor = '#' + hours + minutes + seconds; // It rakjuk össze a színeket (háttérszínt), az időből.
+
+	if (seconds%10 == 0) {
+		separator = ' :: ';
+		document.getElementById("color_clock").className = "font_class2";
+	} else if (seconds%5 == 0) {
+		separator = ' = ';
+		document.getElementById("color_clock").className = "font_class3";
+	} else if (seconds%2 == 0) {
+		separator = ' /=/ ';
+		document.getElementById("color_clock").className = "font_class5";
+	} else {
+		document.getElementById("color_clock").className = "font_class1";
+	}
+	
+	if (seconds%10 == 0) { 
+//		seconds = seconds + ' osztható';
+	} else {
+//		seconds = seconds + ' nem osztható';
+	}
+
+//console.log(seconds);
+//console.log(separator);
+//console.log(document.getElementById('color_clock'));
+
+	clockFace = hours + separator + minutes + separator + seconds; // Itt rakjuk össze az idő kiiratását
+	  
+	document.getElementById('color_clock').innerHTML = clockFace; //Itt kiírjuk az időt
+	  
+	document.body.style.background = hexColor; // Itt változtatjuk a háttérszínt
+	  
+//	document.getElementById('color_clock').style.background = 'black';
+	  
+	//console.log(clockFace);
+	  setTimeout(function() { //Ennyi időnként változik a szín, és az idő
+		colorClock();
+	  }, 1000);
+}
+window.onload = colorClock;
+</script>
+</body>
+</html>
